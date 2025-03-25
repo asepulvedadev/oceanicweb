@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "netlify-build": "npm install && npm run build"
   },
   "dependencies": {
     "astro": "^4.4.0",
@@ -19,5 +20,8 @@
     "@typescript-eslint/parser": "^8.28.0",
     "eslint": "^9.23.0",
     "eslint-plugin-astro": "^1.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
