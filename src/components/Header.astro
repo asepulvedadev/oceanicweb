@@ -1,0 +1,149 @@
+---
+import logo from '../assets/logos/logo.svg';
+import whatsappIcon from '../assets/icons/whatsapp.svg';
+
+const navItems = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#sobre-nosotros', label: 'Sobre Nosotros' },
+  { href: '#contacto', label: 'Contacto' }
+];
+
+// Número de WhatsApp
+const whatsappNumber = '+34900123456'; // Reemplazar con el número real
+const whatsappMessage = 'Hola, me interesa conocer más sobre sus servicios.';
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-white/10">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2">
+        <img src={logo.src} alt="OceanicWeb Logo" class="h-8 w-auto" />
+      </a>
+
+      <!-- Navegación Desktop -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-gray-300 hover:text-white transition-colors duration-200"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Botón de WhatsApp Desktop -->
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden md:flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+      >
+        <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
+        <span>WhatsApp</span>
+      </a>
+
+      <!-- Botón de menú móvil -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden text-gray-300 hover:text-white transition-colors duration-200"
+        aria-label="Menú"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú Móvil -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-gray-900/95 backdrop-blur-md border-b border-white/10"
+  >
+    <div class="container mx-auto px-4 py-4 space-y-4">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block text-gray-300 hover:text-white transition-colors duration-200 py-2"
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center space-x-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
+      >
+        <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Funcionalidad del menú móvil
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.querySelector('header');
+
+  // Toggle del menú móvil
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    // Cambiar el ícono del botón
+    const icon = mobileMenuButton.querySelector('svg');
+    if (icon) {
+      icon.innerHTML = mobileMenu?.classList.contains('hidden')
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+    }
+  });
+
+  // Cerrar el menú móvil al hacer clic en un enlace
+  const mobileLinks = document.querySelectorAll('#mobile-menu a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      // Restaurar el ícono del menú
+      const icon = mobileMenuButton?.querySelector('svg');
+      if (icon) {
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+    });
+  });
+
+  // Cambiar estilo del header al hacer scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('shadow-xl');
+    } else {
+      header?.classList.remove('shadow-xl');
+    }
+  });
+
+  // Cerrar el menú móvil al cambiar el tamaño de la ventana
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) { // md breakpoint
+      mobileMenu?.classList.add('hidden');
+      const icon = mobileMenuButton?.querySelector('svg');
+      if (icon) {
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+    }
+  });
+</script> 

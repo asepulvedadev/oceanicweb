@@ -1,0 +1,133 @@
+---
+import logo from '../assets/logos/logo.svg';
+import facebookIcon from '../assets/icons/facebook.svg';
+import instagramIcon from '../assets/icons/instagram.svg';
+import tiktokIcon from '../assets/icons/tiktok.svg';
+
+const enlaces = {
+  servicios: [
+    { href: '#servicios', label: 'Desarrollo Web' },
+    { href: '#servicios', label: 'Diseño UI/UX' },
+    { href: '#servicios', label: 'Optimización SEO' },
+    { href: '#servicios', label: 'Consultoría' }
+  ],
+  empresa: [
+    { href: '#sobre-nosotros', label: 'Sobre Nosotros' },
+    { href: '#equipo', label: 'Equipo' },
+    { href: '#carreras', label: 'Carreras' },
+    { href: '#blog', label: 'Blog' }
+  ],
+  legal: [
+    { href: '/privacidad', label: 'Política de Privacidad' },
+    { href: '/terminos', label: 'Términos y Condiciones' },
+    { href: '/cookies', label: 'Política de Cookies' },
+    { href: '/rgpd', label: 'RGPD' }
+  ]
+};
+---
+
+<footer class="bg-gray-900 border-t border-white/10">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Logo y Descripción -->
+      <div class="space-y-4">
+        <a href="/" class="flex items-center space-x-2">
+          <img src={logo.src} alt="OceanicWeb Logo" class="h-8 w-auto" />
+        </a>
+        <p class="text-gray-400 text-sm">
+          Transformamos ideas en realidad digital con soluciones tecnológicas innovadoras.
+        </p>
+      </div>
+
+      <!-- Enlaces de Servicios -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Servicios</h3>
+        <ul class="space-y-2">
+          {enlaces.servicios.map((enlace) => (
+            <li>
+              <a
+                href={enlace.href}
+                class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
+              >
+                {enlace.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Enlaces de Empresa -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Empresa</h3>
+        <ul class="space-y-2">
+          {enlaces.empresa.map((enlace) => (
+            <li>
+              <a
+                href={enlace.href}
+                class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
+              >
+                {enlace.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Enlaces Legales -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Legal</h3>
+        <ul class="space-y-2">
+          {enlaces.legal.map((enlace) => (
+            <li>
+              <a
+                href={enlace.href}
+                class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
+              >
+                {enlace.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Redes Sociales y Copyright -->
+    <div class="mt-12 pt-8 border-t border-white/10">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div class="flex space-x-2">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
+            aria-label="Facebook"
+          >
+            <img src={facebookIcon.src} alt="Facebook" class="w-8 h-8" />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
+            aria-label="Instagram"
+          >
+            <img src={instagramIcon.src} alt="Instagram" class="w-8 h-8" />
+          </a>
+          <a
+            href="https://tiktok.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
+            aria-label="TikTok"
+          >
+            <img src={tiktokIcon.src} alt="TikTok" class="w-8 h-8" />
+          </a>
+        </div>
+        <p class="text-gray-400 text-sm">
+          © {new Date().getFullYear()} OceanicWeb. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer> 
+ 

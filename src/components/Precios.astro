@@ -1,0 +1,135 @@
+---
+const paquetes = [
+  {
+    nombre: 'Básico',
+    precio: '500.000 co',
+    descripcion: 'Perfecto para pequeñas empresas y startups',
+    caracteristicas: [
+      'Diseño web responsive',
+      'Hasta 5 páginas',
+      'Formulario de contacto',
+      'Optimización SEO básica',
+      'Soporte por email',
+      'Agente IA sencillo',
+      'Hosting + dominio / 1 año'
+    ],
+    destacado: true,
+    icono: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>`
+  },
+  {
+    nombre: 'Profesional',
+    precio: '800.000 co',
+    descripcion: 'Ideal para empresas en crecimiento',
+    caracteristicas: [
+      'Todo lo del plan Básico',
+      'Hasta 10 páginas',
+      'Panel de administración',
+      'Optimización SEO avanzada',
+      'Integración con redes sociales',
+      'Soporte prioritario',
+
+
+    ],
+    destacado: false,
+    icono: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      <path d="M12 22V12"/>
+    </svg>`
+  },
+  {
+    nombre: 'Empresarial',
+    precio: '1.500.000 co',
+    descripcion: 'Para grandes empresas y proyectos complejos',
+    caracteristicas: [
+      'Todo lo del plan Profesional',
+      'Páginas ilimitadas',
+      'E-commerce integrado',
+      'Optimización SEO personalizada',
+      'Integración con APIs',
+      'Mantenimiento incluido',
+      'Agente IA avanzado',
+    ],
+    destacado: false,
+    icono: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      <path d="M12 22V12"/>
+      <path d="M12 12L2 7"/>
+      <path d="M12 12l10-5"/>
+    </svg>`
+  }
+];
+---
+
+<section id="precios" class="py-24 bg-gray-900 relative overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
+  <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900"></div>
+  
+  <div class="container mx-auto px-4 relative">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-oceanic-blue to-tech-green">
+        Planes y Precios
+      </h2>
+      <p class="text-gray-400 text-lg">
+        Soluciones adaptadas a cada necesidad y presupuesto
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      {paquetes.map((paquete) => (
+        <div class="group relative flex flex-col">
+          {paquete.destacado && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+              <span class="bg-tech-green text-white px-4 py-1 rounded-full text-sm font-medium shadow-lg shadow-tech-green/20">
+                Más Popular
+              </span>
+            </div>
+          )}
+          <div class="absolute inset-0 bg-gradient-to-br from-oceanic-blue/5 to-tech-green/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class={`relative flex flex-col flex-1 p-8 rounded-2xl border transition-all duration-300 ${
+            paquete.destacado 
+              ? 'bg-gray-800/50 backdrop-blur-sm border-tech-green/30 shadow-xl shadow-tech-green/10' 
+              : 'bg-gray-800/30 backdrop-blur-sm border-gray-700/30 hover:border-tech-green/30'
+          }`}>
+            <div class="text-tech-green mb-6 w-12 h-12 flex items-center justify-center rounded-xl bg-tech-green/10" set:html={paquete.icono} />
+            <h3 class="text-2xl font-bold mb-2 text-white">{paquete.nombre}</h3>
+            <p class="text-gray-400 mb-6">{paquete.descripcion}</p>
+            <div class="mb-8">
+              <span class="text-4xl font-bold text-white">${paquete.precio}</span>
+              <span class="text-gray-400">/proyecto</span>
+            </div>
+            <ul class="space-y-4 mb-8 flex-1">
+              {paquete.caracteristicas.map((caracteristica) => (
+                <li class="flex items-center gap-3 text-gray-300">
+                  <svg class="w-5 h-5 text-tech-green flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5"/>
+                  </svg>
+                  <span class="text-sm">{caracteristica}</span>
+                </li>
+              ))}
+            </ul>
+            <button class={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 ${
+              paquete.destacado
+                ? 'bg-tech-green text-white hover:bg-tech-green/90 shadow-lg shadow-tech-green/20'
+                : 'bg-gray-700 text-white hover:bg-gray-600'
+            }`}>
+              Comenzar Ahora
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center">
+      <p class="text-gray-400 mb-4">¿Necesitas un plan personalizado?</p>
+      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300">
+        <span>Contactar con nosotros</span>
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section> 
