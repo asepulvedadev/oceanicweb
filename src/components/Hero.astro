@@ -1,7 +1,8 @@
 ---
 // Importar imágenes para el slider
 import { Image } from 'astro:assets';
-import OCEANICWEB from '../assets/images/OCEANICWEB.jpg';
+// Usando una URL relativa a la carpeta public
+const OCEANICWEB = '/images/OCEANICWEB.jpg';
 
 // Crear array de imágenes
 const images = [
@@ -81,7 +82,7 @@ const images = [
                 {images.map((image, index) => (
                   <div class="slider-slide min-w-full h-full flex-shrink-0">
                     <img
-                      src={image.src.src}
+                      src={image.src}
                       alt={image.alt}
                       class="w-full h-full object-cover object-center"
                     />
