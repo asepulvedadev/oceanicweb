@@ -1,5 +1,5 @@
 ---
-import logo from '../assets/logos/logo.svg';
+import logo from '../assets/logos/Logo.svg';
 import whatsappIcon from '../assets/icons/whatsapp.svg';
 
 const navItems = [
@@ -15,12 +15,13 @@ const whatsappMessage = 'Hola, me interesa conocer más sobre sus servicios.';
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-white/10">
+<header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center space-x-2">
-        <img src={logo.src} alt="OceanicWeb Logo" class="h-8 w-auto" />
+        <img src={logo.src} alt="OceanicWeb Logo" class="w-8 h-8" />
+        <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">OceanicWeb</span>
       </a>
 
       <!-- Navegación Desktop -->
