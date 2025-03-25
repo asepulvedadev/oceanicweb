@@ -103,36 +103,59 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   const header = document.querySelector('header');
+  let isMenuOpen = false;
 
-  // Toggle del menú móvil
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      const isHidden = mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden');
-      
-      // Cambiar el ícono del botón
+  // Función para abrir el menú
+  function openMenu() {
+    if (mobileMenu && mobileMenuButton) {
+      mobileMenu.classList.remove('hidden');
       const icon = mobileMenuButton.querySelector('svg');
       if (icon) {
-        icon.innerHTML = isHidden
-          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
-          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+      }
+      isMenuOpen = true;
+    }
+  }
+
+  // Función para cerrar el menú
+  function closeMenu() {
+    if (mobileMenu && mobileMenuButton) {
+      mobileMenu.classList.add('hidden');
+      const icon = mobileMenuButton.querySelector('svg');
+      if (icon) {
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+      isMenuOpen = false;
+    }
+  }
+
+  // Toggle del menú móvil
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', () => {
+      if (isMenuOpen) {
+        closeMenu();
+      } else {
+        openMenu();
       }
     });
   }
 
-  // Cerrar el menú móvil al hacer clic en un enlace
+  // Cerrar el menú al hacer clic en un enlace
   const mobileLinks = document.querySelectorAll('#mobile-menu a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
-      if (mobileMenu) {
-        mobileMenu.classList.add('hidden');
-        // Restaurar el ícono del menú
-        const icon = mobileMenuButton?.querySelector('svg');
-        if (icon) {
-          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
-        }
-      }
+      closeMenu();
     });
+  });
+
+  // Cerrar el menú al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if (isMenuOpen && mobileMenu && mobileMenuButton) {
+      const isClickInside = mobileMenu.contains(e.target as Node) || mobileMenuButton.contains(e.target as Node);
+      if (!isClickInside) {
+        closeMenu();
+      }
+    }
   });
 
   // Cambiar estilo del header al hacer scroll
@@ -146,16 +169,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     }
   });
 
-  // Cerrar el menú móvil al cambiar el tamaño de la ventana
+  // Cerrar el menú al cambiar el tamaño de la ventana
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) { // md breakpoint
-      if (mobileMenu) {
-        mobileMenu.classList.add('hidden');
-        const icon = mobileMenuButton?.querySelector('svg');
-        if (icon) {
-          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
-        }
-      }
+      closeMenu();
     }
   });
 
