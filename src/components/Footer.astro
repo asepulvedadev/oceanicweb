@@ -1,5 +1,5 @@
 ---
-import logo from '../assets/logos/logo.svg';
+import Logo from '../assets/logos/Logo.svg';
 import facebookIcon from '../assets/icons/facebook.svg';
 import instagramIcon from '../assets/icons/instagram.svg';
 import tiktokIcon from '../assets/icons/tiktok.svg';
@@ -26,16 +26,13 @@ const enlaces = {
 };
 ---
 
-<footer class="bg-gray-900 border-t border-white/10">
-  <div class="container mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <!-- Logo y Descripción -->
+<footer class="bg-[#0A0A0A] text-white py-12 relative">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div class="space-y-4">
-        <a href="/" class="flex items-center space-x-2">
-          <img src={logo.src} alt="OceanicWeb Logo" class="h-8 w-auto" />
-        </a>
-        <p class="text-gray-400 text-sm">
-          Transformamos ideas en realidad digital con soluciones tecnológicas innovadoras.
+        <img src={Logo.src} alt="Oceanic Web Logo" class="h-12 w-auto" />
+        <p class="text-sm text-gray-400">
+          Transformamos tu presencia digital con soluciones innovadoras y diseño web de vanguardia.
         </p>
       </div>
 
