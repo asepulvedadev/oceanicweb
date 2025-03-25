@@ -1,11 +1,9 @@
 [build]
-  command = "npm run build"
+  command = "bun run build"
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
-  GO_VERSION = "1.19.13"
+  BUN_VERSION = "1.0.0"
 
 [[plugins]]
   package = "@astrojs/netlify"
