@@ -8,8 +8,6 @@
 
 [[plugins]]
   package = "@astrojs/netlify"
-  [plugins.inputs]
-    functionDir = "netlify/functions"
 
 [[redirects]]
   from = "/*"

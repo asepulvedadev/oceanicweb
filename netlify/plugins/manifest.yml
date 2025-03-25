@@ -1,0 +1,6 @@
+name: "@astrojs/netlify"
+inputs:
+  - name: functionDir
+    description: "Directory where serverless functions are stored"
+    required: false
+    default: "netlify/functions" 
