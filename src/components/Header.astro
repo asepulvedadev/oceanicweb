@@ -22,7 +22,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <a href="#inicio" class="flex items-center">
-        <img src={logo.src} alt="OceanicWeb Logo" class="h-10 w-auto" />
+        <img src={logo.src} alt="OceanicWeb Logo" class="h-6 w-auto" />
       </a>
 
       <!-- Navegación Desktop -->
@@ -105,46 +105,56 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
   const header = document.querySelector('header');
 
   // Toggle del menú móvil
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-    // Cambiar el ícono del botón
-    const icon = mobileMenuButton.querySelector('svg');
-    if (icon) {
-      icon.innerHTML = mobileMenu?.classList.contains('hidden')
-        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>'
-        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
-    }
-  });
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      
+      // Cambiar el ícono del botón
+      const icon = mobileMenuButton.querySelector('svg');
+      if (icon) {
+        icon.innerHTML = isHidden
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+    });
+  }
 
   // Cerrar el menú móvil al hacer clic en un enlace
   const mobileLinks = document.querySelectorAll('#mobile-menu a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      // Restaurar el ícono del menú
-      const icon = mobileMenuButton?.querySelector('svg');
-      if (icon) {
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        // Restaurar el ícono del menú
+        const icon = mobileMenuButton?.querySelector('svg');
+        if (icon) {
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        }
       }
     });
   });
 
   // Cambiar estilo del header al hacer scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header?.classList.add('shadow-xl');
-    } else {
-      header?.classList.remove('shadow-xl');
+    if (header) {
+      if (window.scrollY > 50) {
+        header.classList.add('shadow-xl');
+      } else {
+        header.classList.remove('shadow-xl');
+      }
     }
   });
 
   // Cerrar el menú móvil al cambiar el tamaño de la ventana
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) { // md breakpoint
-      mobileMenu?.classList.add('hidden');
-      const icon = mobileMenuButton?.querySelector('svg');
-      if (icon) {
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        const icon = mobileMenuButton?.querySelector('svg');
+        if (icon) {
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        }
       }
     }
   });
@@ -154,17 +164,18 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
     anchor.addEventListener('click', (e: Event) => {
       e.preventDefault();
       const targetId = anchor.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      
-      if (targetElement) {
-        const headerOffset = 80; // Altura del header
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      if (targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const headerOffset = 80; // Altura del header
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
