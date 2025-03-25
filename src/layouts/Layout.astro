@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import WaveBackground from '../components/WaveBackground.astro';
+
 
 interface Props {
 	title: string;
@@ -48,7 +48,7 @@ const { title, description } = Astro.props;
 		</script>
 	</head>
 	<body class="min-h-screen bg-gray-900 text-white flex flex-col">
-		<WaveBackground />
+		
 		<Header />
 		<main class="flex-grow">
 			<slot />

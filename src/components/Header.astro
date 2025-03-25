@@ -2,6 +2,7 @@
 import logo from '../assets/logos/Logo.svg';
 import whatsappIcon from '../assets/icons/whatsapp.svg';
 
+// Enlaces de navegación
 const navItems = [
   { href: '#inicio', label: 'Inicio' },
   { href: '#servicios', label: 'Servicios' },
@@ -11,189 +12,116 @@ const navItems = [
   { href: '#contacto', label: 'Contacto' }
 ];
 
-// Número de WhatsApp
-const whatsappNumber = '+573108644707'; // Número real
+// WhatsApp
+const whatsappNumber = '+573108644707';
 const whatsappMessage = 'Hola, me interesa conocer más sobre sus servicios.';
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+<!-- Header con Menú Móvil Básico -->
+<header class="bg-gray-900 fixed w-full top-0 left-0 right-0 z-50 shadow-lg">
   <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-20">
+    <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="#inicio" class="flex items-center">
         <img src={logo.src} alt="OceanicWeb Logo" class="h-6 w-auto" />
       </a>
 
-      <!-- Navegación Desktop -->
-      <nav class="hidden md:flex items-center space-x-8">
+      <!-- Navegación visible solo en desktop -->
+      <div class="hidden md:flex items-center space-x-6 ">
         {navItems.map((item) => (
           <a
             href={item.href}
-            class="text-gray-300 hover:text-white transition-colors duration-200"
+            class="text-gray-300 hover:text-tech-green text-md "
           >
             {item.label}
           </a>
         ))}
-      </nav>
-
-      <!-- Botón de WhatsApp Desktop -->
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden md:flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
-      >
-        <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
-        <span>WhatsApp</span>
-      </a>
-
-      <!-- Botón de menú móvil -->
-      <button
-        id="mobile-menu-button"
-        class="md:hidden text-gray-300 hover:text-white transition-colors duration-200"
-        aria-label="Menú"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Menú Móvil -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden bg-gray-900/95 backdrop-blur-md border-b border-white/10"
-  >
-    <div class="container mx-auto px-4 py-4 space-y-4">
-      {navItems.map((item) => (
+        
+        <!-- Botón WhatsApp desktop -->
         <a
-          href={item.href}
-          class="block text-gray-300 hover:text-white transition-colors duration-200 py-2"
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg ml-2"
         >
-          {item.label}
+          <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
+          <span>WhatsApp</span>
         </a>
-      ))}
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center justify-center space-x-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
-      >
-        <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
-        <span>WhatsApp</span>
-      </a>
+      </div>
+
+      <!-- Botones móvil -->
+      <div class="flex items-center md:hidden">
+        <!-- Botón WhatsApp móvil -->
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center w-10 h-10 bg-green-600 rounded-full mr-2"
+        >
+          <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
+        </a>
+        
+        <!-- Botón hamburguesa para abrir menu -->
+        <button 
+          onclick="document.getElementById('menu-mobile').style.display='block'; document.body.style.overflow='hidden';"
+          type="button"
+          class="w-10 h-10 flex flex-col justify-center items-center cursor-pointer"
+          aria-label="Abrir menú"
+        >
+          <span class="w-6 h-0.5 bg-white block mb-1.5"></span>
+          <span class="w-6 h-0.5 bg-white block"></span>
+          <span class="w-6 h-0.5 bg-white block mt-1.5"></span>
+        </button>
+      </div>
     </div>
   </div>
 </header>
 
-<script>
-  // Funcionalidad del menú móvil
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const header = document.querySelector('header');
-  let isMenuOpen = false;
-
-  // Función para abrir el menú
-  function openMenu() {
-    if (mobileMenu && mobileMenuButton) {
-      mobileMenu.classList.remove('hidden');
-      const icon = mobileMenuButton.querySelector('svg');
-      if (icon) {
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
-      }
-      isMenuOpen = true;
-    }
-  }
-
-  // Función para cerrar el menú
-  function closeMenu() {
-    if (mobileMenu && mobileMenuButton) {
-      mobileMenu.classList.add('hidden');
-      const icon = mobileMenuButton.querySelector('svg');
-      if (icon) {
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
-      }
-      isMenuOpen = false;
-    }
-  }
-
-  // Toggle del menú móvil
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', () => {
-      if (isMenuOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-  }
-
-  // Cerrar el menú al hacer clic en un enlace
-  const mobileLinks = document.querySelectorAll('#mobile-menu a');
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      closeMenu();
-    });
-  });
-
-  // Cerrar el menú al hacer clic fuera
-  document.addEventListener('click', (e) => {
-    if (isMenuOpen && mobileMenu && mobileMenuButton) {
-      const isClickInside = mobileMenu.contains(e.target as Node) || mobileMenuButton.contains(e.target as Node);
-      if (!isClickInside) {
-        closeMenu();
-      }
-    }
-  });
-
-  // Cambiar estilo del header al hacer scroll
-  window.addEventListener('scroll', () => {
-    if (header) {
-      if (window.scrollY > 50) {
-        header.classList.add('shadow-xl');
-      } else {
-        header.classList.remove('shadow-xl');
-      }
-    }
-  });
-
-  // Cerrar el menú al cambiar el tamaño de la ventana
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) { // md breakpoint
-      closeMenu();
-    }
-  });
-
-  // Scroll suave para todos los enlaces de anclaje
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e: Event) => {
-      e.preventDefault();
-      const targetId = anchor.getAttribute('href');
-      if (targetId) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          const headerOffset = 80; // Altura del header
-          const elementPosition = targetElement.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  });
-</script> 
+<!-- Menú móvil como overlay -->
+<div id="menu-mobile" style="display:none;" class="fixed inset-0 bg-gray-900 z-[100]">
+  <div class="container mx-auto px-4 py-4 h-full">
+    <!-- Cabecera del menú con botón cerrar -->
+    <div class="flex justify-between items-center mb-8">
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center">
+        <img src={logo.src} alt="OceanicWeb Logo" class="h-5 w-auto" />
+      </a>
+      
+      <!-- Botón cerrar -->
+      <button 
+        onclick="document.getElementById('menu-mobile').style.display='none'; document.body.style.overflow='';"
+        type="button"
+        class="w-10 h-10 flex justify-center items-center"
+        aria-label="Cerrar menú"
+      >
+        <span class="w-6 h-0.5 bg-white block rotate-45 absolute"></span>
+        <span class="w-6 h-0.5 bg-white block -rotate-45 absolute"></span>
+      </button>
+    </div>
+    
+    <!-- Enlaces del menú -->
+    <div class="flex flex-col space-y-6">
+      {navItems.map((item) => (
+        <a 
+          href={item.href} 
+          class="text-center text-gray-300 hover:text-tech-green py-3 border-b border-gray-700 text-xl"
+          onclick="document.getElementById('menu-mobile').style.display='none'; document.body.style.overflow='';"
+        >
+          {item.label}
+        </a>
+      ))}
+      
+      <!-- Botón WhatsApp dentro del menú -->
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-3 rounded-lg mt-8 mx-auto"
+      >
+        <img src={whatsappIcon.src} alt="WhatsApp" class="w-5 h-5" />
+        <span>Contactar por WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</div> 
