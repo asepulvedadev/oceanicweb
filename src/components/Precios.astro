@@ -60,6 +60,11 @@ const paquetes = [
     </svg>`
   }
 ];
+// WhatsApp
+const whatsappNumber = '+573108644707';
+const whatsappMessage = 'Hola, me interesa conocer más sobre sus precios.';
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
 ---
 
 <section id="precios" class="py-24 bg-gray-900 relative overflow-hidden">
@@ -110,12 +115,12 @@ const paquetes = [
                 </li>
               ))}
             </ul>
-            <button class={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 ${
+            <button class= {`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 ${
               paquete.destacado
                 ? 'bg-tech-green text-white hover:bg-tech-green/90 shadow-lg shadow-tech-green/20'
                 : 'bg-gray-700 text-white hover:bg-gray-600'
             }`}>
-              Comenzar Ahora
+              <a href={whatsappUrl}>Comenzar Ahora</a>
             </button>
           </div>
         </div>
