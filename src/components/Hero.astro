@@ -1,3 +1,17 @@
+---
+// Importar imágenes para el slider
+import { Image } from 'astro:assets';
+import OCEANICWEB from '../assets/images/OCEANICWEB.jpg';
+
+// Crear array de imágenes
+const images = [
+  {
+    src: OCEANICWEB,
+    alt: 'OCEANICWEB'
+  }
+];
+---
+
 <section class="relative min-h-screen pt-20 md:pt-32 pb-16 overflow-hidden">
   <div class="container mx-auto px-4">
     <!-- Bento Grid Hero -->
@@ -54,19 +68,39 @@
           <!-- Box 2 -->
           <div class="aspect-square rounded-3xl bg-gray-800/80 backdrop-blur-sm p-6 translate-y-8 animate-float-delayed shadow-xl border border-gray-700/50 overflow-hidden flex items-center justify-center">
             <div class="text-center">
-              <span class="text-6xl font-bold bg-gradient-to-r from-oceanic-blue to-tech-green text-transparent bg-clip-text block">10+</span>
-              <span class="text-sm text-gray-400 mt-2 block">Años de Experiencia</span>
+              <span class="text-6xl font-bold bg-gradient-to-r from-oceanic-blue to-tech-green text-transparent bg-clip-text block">Web + IA =</span>
+              <span class="text-sm text-gray-400 mt-2 block">Futuro Digital</span>
             </div>
           </div>
           
-          <!-- Box 3 - Wide -->
-          <div class="col-span-2 aspect-video rounded-3xl bg-gray-800/80 backdrop-blur-sm p-6 -translate-y-4 animate-float-medium shadow-xl border border-gray-700/50 overflow-hidden">
-            <div class="flex flex-col h-full justify-center items-center">
-              <svg class="w-16 h-16 text-oceanic-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-              <span class="text-2xl font-medium bg-gradient-to-r from-oceanic-blue to-tech-green text-transparent bg-clip-text">Soluciones a medida</span>
-              <span class="text-sm text-gray-400 mt-2">para cada necesidad</span>
+          <!-- Box 3 - Slider de imágenes -->
+          <div class="col-span-2 aspect-video rounded-3xl bg-gray-800/80 backdrop-blur-sm p-2 -translate-y-4 animate-float-medium shadow-xl border border-gray-700/50 overflow-hidden">
+            <div id="image-slider" class="relative w-full h-full rounded-2xl overflow-hidden">
+              <!-- Contenedor de imágenes -->
+              <div class="slider-container w-full h-full flex transition-transform duration-500 ease-in-out">
+                {images.map((image, index) => (
+                  <div class="slider-slide min-w-full h-full flex-shrink-0">
+                    <img
+                      src={image.src.src}
+                      alt={image.alt}
+                      class="w-full h-full object-cover object-center"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <!-- Indicadores -->
+              <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
+                {images.map((_, index) => (
+                  <button 
+                    class={`slider-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white focus:outline-none ${index === 0 ? 'bg-white' : ''}`}
+                    data-index={index}
+                  ></button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -95,4 +129,59 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
     </svg>
   </div>
-</section> 
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.slider-container') as HTMLElement;
+    const slides = document.querySelectorAll('.slider-slide');
+    const indicators = document.querySelectorAll('.slider-indicator');
+    
+    if (!slider || slides.length === 0) return;
+    
+    let currentIndex = 0;
+    const slideCount = slides.length;
+    
+    // Función para mostrar un slide específico
+    const goToSlide = (index: number) => {
+      if (index < 0) index = slideCount - 1;
+      if (index >= slideCount) index = 0;
+      
+      currentIndex = index;
+      const offset = -currentIndex * 100;
+      slider.style.transform = `translateX(${offset}%)`;
+      
+      // Actualizar indicadores
+      indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('bg-white', i === currentIndex);
+        indicator.classList.toggle('bg-white/50', i !== currentIndex);
+      });
+    };
+    
+    // Event listeners para los indicadores
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+    
+    // Auto-reproducción
+    let intervalId = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, 5000);
+    
+    // Detener auto-reproducción al hover
+    const sliderContainer = document.getElementById('image-slider');
+    if (sliderContainer) {
+      sliderContainer.addEventListener('mouseenter', () => {
+        clearInterval(intervalId);
+      });
+      
+      sliderContainer.addEventListener('mouseleave', () => {
+        intervalId = setInterval(() => {
+          goToSlide(currentIndex + 1);
+        }, 5000);
+      });
+    }
+  });
+</script> 
